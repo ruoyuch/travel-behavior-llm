@@ -1,9 +1,11 @@
-# Behavioral response prediction of human travelers with LLM
+# Behavior prediction of human travelers with ML + LLM
 
 ## Summary
 Predicting how travelers respond to operational changes, such as a fare increase, is important for mobility service providers.
 I tested how well a large language model (LLM) does this, against a discrete choice model and a machine learning model.
-**When it knows a person's earlier choices, the LLM reaches accuracy comparable to XGBoost (76% vs. 79%) and recovers the observed train fare elasticity (−0.85 vs. −0.88).**
+
+I found that **the LLM reaches accuracy comparable to XGBoost (76% vs. 79%) and recovers the observed train fare elasticity (−0.85 vs. −0.88)** when it knows a person's earlier choices.
+This suggests LLMs can be useful for behavioral prediction: they bring prior knowledge of how people travel without any training data, and can adapt to an individual from a few past choices.
 
 <p align="center">
   <img src="results/fig_headline.png" alt="(a) Study design; (b) accuracy vs. train fare elasticity for each model" width="100%">
@@ -14,10 +16,10 @@ I tested how well a large language model (LLM) does this, against a discrete cho
 ## Method
 
 The experiment uses three model families in five setups to predict mode choices in the scenario-based Swissmetro survey.
-I started with a multinomial logit model (MNL), which is interpretable but less predictive.
-I then trained XGBoost as a machine learning approach, once on the full training sample and once with history
+I started with a *multinomial logit model* (MNL), which is interpretable but less predictive.
+I then trained *XGBoost* as a machine learning approach, once on the full training sample and once with history
 (predicting each person's last 3 choices from their first 6).
-Finally, I prompted a local LLM to play each traveler and read its choice probabilities from the log-probs of the answer letters,
+Finally, I prompted *a local LLM to role-play each traveler* and read its choice probabilities from the log-probs of the answer letters,
 once with the traveler's profile only and once with their 6 earlier choices added.
 
 | | |
@@ -78,12 +80,12 @@ History helps both XGBoost and the LLM, and accuracy hides gaps that recall show
 MNL's 67% accuracy comes mostly from predicting Swissmetro.
 It almost never predicts train, so its recall (0.51) is no better than the LLM without history.
 
-| Model | Training data | Accuracy | Recall | Fare elasticity (train) | Fare elasticity (swissmetro) |
+| Model | Training data | Accuracy | Recall | Fare elasticity (train) | Fare elasticity (Swissmetro) |
 |---|---|---|---|---|---|
 | Observed | — | — | — | −0.88 | −0.63 |
 | MNL | 452 people, Q1–9 | 0.67 | 0.51 | −0.58 | −0.46 |
 | XGBoost | 452 people, Q1–9 | 0.72 | 0.64 | −0.71 | −0.46 |
-| XGBoost (+ history) | 452 people, Q1–6 → Q7–9 | 0.79 | 0.75 | −1.01 | −0.60 |
+| XGBoost (+ history) | Q1–6 → Q7–9 | 0.79 | 0.75 | −1.01 | −0.60 |
 | LLM (profile) | none | 0.59 | 0.52 | −0.42 | −0.71 |
 | LLM (profile + history) | none | 0.76 | 0.69 | −0.85 | −0.39 |
 
