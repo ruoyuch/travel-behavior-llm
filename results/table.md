@@ -1,0 +1,10 @@
+| Source | Training data | Accuracy | Recall | Train fare elasticity | Swissmetro fare elasticity |
+|---|---|---|---|---|---|
+| Observed | — | — | — | −0.88 [−1.37, −0.49] | −0.63 [−0.85, −0.44] |
+| MNL | 452 people, Q1–9 | 0.67 [0.62, 0.71] | 0.51 [0.48, 0.54] | −0.58 [−0.65, −0.52] | −0.46 [−0.50, −0.42] |
+| XGBoost | 452 people, Q1–9 | 0.72 [0.69, 0.76] | 0.64 [0.60, 0.69] | −0.71 [−1.00, −0.55] | −0.46 [−0.56, −0.37] |
+| XGBoost (+ history) | 452 people, Q1–6 → Q7–9 | 0.79 [0.76, 0.82] | 0.75 [0.71, 0.79] | −1.01 [−1.37, −0.68] | −0.60 [−0.75, −0.46] |
+| LLM (profile) | none | 0.59 [0.54, 0.63] | 0.52 [0.48, 0.56] | −0.42 [−0.60, −0.32] | −0.71 [−0.86, −0.60] |
+| LLM (profile + history) | none | 0.76 [0.72, 0.79] | 0.69 [0.64, 0.73] | −0.85 [−1.19, −0.50] | −0.39 [−0.53, −0.27] |
+
+300 people, 900 held-out choices (Q7–9). Recall: mean over the three modes. Elasticity: own-fare, from an MNL fit to each source on the 777 rows with a fare (no GA pass). [95% CI, paired resamples of people.]
