@@ -1,0 +1,24 @@
+[project]
+name = "travel-behavior-agent"
+version = "0.1.0"
+description = "Do LLM traveler agents shift mode choices like real people? Treatment-effect fidelity on Swissmetro."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "pyyaml",
+    "requests",
+    "scikit-learn",
+    "scipy",
+    "xgboost",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# Install `src` as an importable package so pipeline/ scripts run from anywhere.
+[tool.hatch.build.targets.wheel]
+packages = ["src"]

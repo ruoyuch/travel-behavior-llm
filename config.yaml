@@ -1,0 +1,17 @@
+# travel-behavior-agent configuration
+model: qwen38-chat            # Ollama tag; qwen35 architecture, 27.3B parameters, Q5_K_M
+endpoint: http://localhost:11434
+temperature: 0
+top_logprobs: 20
+
+data_path: data/raw/swissmetro.dat
+data_url: http://transp-or.epfl.ch/data/swissmetro.dat
+
+n_respondents: 300            # full design; the training pool excludes the first 300 of the shuffled order
+seed: 42
+n_memory: 6                   # tasks 1-6 memory, tasks 7-9 test
+n_boot: 500
+
+cache_path: cache/llm_calls.jsonl
+results_dir: results
+conditions: [C1, C2]          # C1 = profile only, C2 = profile + history (6 past choices)
